@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Meme Deck Mobile</title>
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1e1e1e;
+            --accent-color: #00ffcc;
+            --stop-color: #ff4d4d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Inter', -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            touch-action: manipulation; /* Prevents double-tap zoom delay */
+        }
+
+        h1 { 
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+        }
+
+        /* Responsive Grid */
+        .deck-container {
+            display: grid;
+            /* 2 columns on small phones, 3 on larger ones */
+            grid-template-columns: repeat(2, 1fr); 
+            grid-gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Desktop Adjustment */
+        @media (min-width: 400px) {
+            .deck-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .sound-btn {
+            aspect-ratio: 1 / 1; /* Keeps buttons perfectly square */
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #ddd;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.05s ease, box-shadow 0.05s ease;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+        }
+
+        /* Visual Feedback for Taps */
+        .sound-btn:active {
+            transform: scale(0.92);
+            background: var(--accent-color);
+            color: black;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .controls {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .stop-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--stop-color);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
+        }
+
+        /* Status indicator */
+        #status {
+            font-size: 10px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Meme Deck</h1>
+
+    <div class="deck-container">
+        <button class="sound-btn" onclick="playSound('fahh')">FAAH</button>
+        <button class="sound-btn" onclick="playSound('meow')">MIAU MIAU</button>
+        <button class="sound-btn" onclick="playSound('oeea')">OE EE AA</button>
+        <button class="sound-btn" onclick="playSound('vine')">VINE BOOM</button>
+        <button class="sound-btn" onclick="playSound('bruh')">BRUH</button>
+        <button class="sound-btn" onclick="playSound('emotional')">EMOTIONAL</button>
+    </div>
+
+    <div class="controls">
+        <button class="stop-btn" onclick="stopAll()">STOP ALL SOUNDS</button>
+    </div>
+
+    <p id="status">Tap anywhere to initialize audio engine</p>
+
+    <script>
+        const sounds = {
+            fahh: new Audio('fahh.mp3'), 
+            meow: new Audio('meow.mp3'),
+            oeea: new Audio('oeea.mp3'),
+            vine: new Audio('https://www.myinstants.com/media/sounds/vine-boom.mp3'),
+            bruh: new Audio('https://www.myinstants.com/media/sounds/bruh.mp3'),
+            emotional: new Audio('https://www.myinstants.com/media/sounds/emotional-damage-meme.mp3')
+        };
+
+        function playSound(key) {
+            const sound = sounds[key];
+            if (sound) {
+                sound.currentTime = 0;
+                sound.play().catch(e => {
+                    console.log("Audio interaction required");
+                });
+                document.getElementById('status').style.display = 'none';
+            }
+        }
+
+        function stopAll() {
+            Object.values(sounds).forEach(s => {
+                s.pause();
+                s.currentTime = 0;
+            });
+        }
+
+        // Initialize audio context on first touch for mobile browsers
+        document.body.addEventListener('touchstart', function() {
+            // This wakes up the audio engine on mobile
+            for (let key in sounds) {
+                sounds[key].load();
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
