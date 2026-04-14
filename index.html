@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -21,10 +22,11 @@
             align-items: center;
             margin: 0;
             padding: 20px;
-            touch-action: manipulation; /* Prevents double-tap zoom delay */
+            touch-action: manipulation;
+            /* Prevents double-tap zoom delay */
         }
 
-        h1 { 
+        h1 {
             font-size: 1.5rem;
             color: var(--accent-color);
             text-transform: uppercase;
@@ -36,14 +38,14 @@
         .deck-container {
             display: grid;
             /* 2 columns on small phones, 3 on larger ones */
-            grid-template-columns: repeat(2, 1fr); 
+            grid-template-columns: repeat(2, 1fr);
             grid-gap: 12px;
             width: 100%;
             max-width: 400px;
             padding: 15px;
             background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         /* Desktop Adjustment */
@@ -54,7 +56,8 @@
         }
 
         .sound-btn {
-            aspect-ratio: 1 / 1; /* Keeps buttons perfectly square */
+            aspect-ratio: 1 / 1;
+            /* Keeps buttons perfectly square */
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 1px solid #333;
             border-radius: 12px;
@@ -69,7 +72,7 @@
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             transition: transform 0.05s ease, box-shadow 0.05s ease;
-            box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
         }
 
         /* Visual Feedback for Taps */
@@ -106,6 +109,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <h1>Meme Deck</h1>
@@ -114,11 +118,11 @@
         <button class="sound-btn" onclick="playSound('fahh')">FAAH</button>
         <button class="sound-btn" onclick="playSound('vine')">VINE BOOM</button>
         <button class="sound-btn" onclick="playSound('bruh')">BRUH</button>
-        <button class="sound-btn" onclick="playSound('oeea')">OE EE AA</button>
+        <button class="sound-btn" onclick="playSound('oiia')">OIIA</button>
         <button class="sound-btn" onclick="playSound('emotional')">EMOTIONAL DAMAGE</button>
         <button class="sound-btn" onclick="playSound('disgust')">OH HELL NAH</button>
         <button class="sound-btn" onclick="playSound('meow')">MIAU MIAU</button>
-        <button class="sound-btn" onclick="playSound('blue')">BLUE but Oo Ee Aa</button>
+        <button class="sound-btn" onclick="playSound('blue')">BLUE x OIIA</button>
     </div>
 
     <div class="controls">
@@ -129,14 +133,14 @@
 
     <script>
         const sounds = {
-            fahh: new Audio('fahh.mp3'), 
-            meow: new Audio('meow.mp3'),
-            oeea: new Audio('oeea.mp3'),
-            vine: new Audio('https://www.myinstants.com/media/sounds/vine-boom.mp3'),
-            bruh: new Audio('https://www.myinstants.com/media/sounds/bruh.mp3'),
-            emotional: new Audio('https://www.myinstants.com/media/sounds/emotional-damage-meme.mp3'),
-            disgust: new Audio('hell.mp3'),
-            blue: new Audio('blue.mp3'),
+            fahh: new Audio('sounds/fahh.mp3'),
+            meow: new Audio('sounds/meow.mp3'),
+            oiia: new Audio('sounds/oiia.mp3'),
+            vine: new Audio('sounds/vine-boom.mp3'),
+            bruh: new Audio('sounds/bruh.mp3'),
+            emotional: new Audio('sounds/emotional-damage.mp3'),
+            disgust: new Audio('sounds/hell.mp3'),
+            blue: new Audio('sounds/blue.mp3'),
         };
 
         function playSound(key) {
@@ -158,7 +162,7 @@
         }
 
         // Initialize audio context on first touch for mobile browsers
-        document.body.addEventListener('touchstart', function() {
+        document.body.addEventListener('touchstart', function () {
             // This wakes up the audio engine on mobile
             for (let key in sounds) {
                 sounds[key].load();
@@ -166,4 +170,5 @@
         }, { once: true });
     </script>
 </body>
+
 </html>
